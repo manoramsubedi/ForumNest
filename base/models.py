@@ -16,7 +16,7 @@ class Room(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
-    #participants =
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True) 
 
@@ -35,5 +35,8 @@ class Message(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True) 
 
+    class Meta:
+        ordering = ['-updated','-created'] #order into ascending order
+
     def __str__(self):
-        return f"{self.room.name}-{self.user}"
+        return self.body[0:50]
