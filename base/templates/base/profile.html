@@ -19,7 +19,10 @@
           <div class="profile__info">
             <h3>{{user.username|title}}</h3>
             <p>@{{user.username}}</p>
-            <a href="edit-user.html" class="btn btn--main btn--pill">Edit Profile</a>
+
+            {% if request.user == user %}
+              <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
+            {% endif %}
           </div>
           <div class="profile__about">
             <h3>About</h3>
@@ -33,7 +36,7 @@
 
         <div class="roomList__header">
           <div>
-            <h2>Study Rooms Hosted by dennis_ivy</a>
+            <h2>Study Rooms Hosted by {{user.username}}</a>
             </h2>
           </div>
         </div>
